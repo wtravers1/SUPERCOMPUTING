@@ -2,12 +2,12 @@
 The following commands were executed from 'SUPERCOMPUTING/assignments/assignment_01' directory
 
 1. Initialize primary documentation
-	touch README.md assignment_1_essay.md
+	'touch README.md assignment_1_essay.md'
 *Note: Created the README and assignment_1_essay both as markdown files*
 
 2. Create base directory architecture
-	mkdir config data docs logs results scripts
-	mkdir -p data/{clean,raw}
+	'mkdir config data docs logs results scripts'
+	'mkdir -p data/{clean,raw}'
 *Note: I used -p and braces to create the nested directories without having to traverse back and forth into the data directory*
 
 3. Generate placeholder files
@@ -16,7 +16,7 @@ The following commands were executed from 'SUPERCOMPUTING/assignments/assignment
 *Note: Created empty placeholder files with file types that match their intended uses*
 
 4. Verify assignment structure
-	cmd //c tree //f
+	'cmd //c tree //f'
 *Note: generates a visual tree to confirm contents match assignment requirements*
 
 ## Explanation and Assignment Notes
