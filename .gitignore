@@ -1,1 +1,5 @@
 *.gz
+*.tsv
+*.fna
+/lessons
+/quizzes
