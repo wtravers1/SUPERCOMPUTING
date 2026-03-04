@@ -2,22 +2,40 @@
 # Wyatt Travers
 # 3-4-26
 
+## Assignment Tree
+C:.
+│   pipeline.sh
+│   README.md
+│
+├───data
+│   ├───raw
+│   │       .gitkeep
+│   │
+│   └───trimmed
+│           .gitkeep
+│
+├───log
+│       .gitkeep
+│
+└───scripts
+        01_download_data.sh
+        02_run_fastp.sh
+
 ## Setup assignment_05/ directory
 ```
 mkdir data log scripts
 mkdir ./data/raw ./data/trimmed
 touch ./data/raw/.gitkeep ./data/trimmed/.gitkeep ./log/.gitkeep
 ```
-# add a .gitkeep file in both data and log directories to keep the file structure (since .gz and .html files are hidden in .gitignore)
+Add a .gitkeep file in both data and log directories to keep the file structure (since .gz and .html files are hidden in .gitignore).
 
 ## Installing fastq into ~/programs
-# Ran the following code to install fastq into my programs directory
+Ran the following code to install fastq into my programs directory:
 ```
 wget http://opengene.org/fastp/fastp
 chmod a+x ./fastp
 ```
-
-# Wanted to check the version with `fastp --version` because I downloaded an unkown "most up-to-date" one. I am on fastp 1.1.0 for this assignment.
+Wanted to check the version with `fastp --version` because I downloaded an unkown "most up-to-date" one. I am on fastp 1.1.0 for this assignment.
 
 ## Creating 01_download_data.sh
 ```
@@ -75,14 +93,9 @@ do
 done
 ```
 ## Miscellaneous Notes
-*After creating the 3 .sh scripts, make sure to run the following command to add the correct permissions to the files...*
-```
-chmod 750 <file_name>
-```
-
-*When creating the 02_run_fastp.sh script, I wanted to verify the environmental variable names before working on the fastp command. I added `echo $FWD_IN $REV_IN $FWD_OUT $REV_OUT` and ran it on a test file in data to verify the naming was correct.*
-
-*To run the pipeline, all the user needs to do is execute ./pipieline.sh from the assignment_05 directory.*
+- After creating the 3 .sh scripts, make sure to run the following command to add the correct permissions to the files: `chmod 750 <file_name>`. 
+- When creating the 02_run_fastp.sh script, I wanted to verify the environmental variable names before working on the fastp command. I added `echo $FWD_IN $REV_IN $FWD_OUT $REV_OUT` and ran it on a test file in data to verify the naming was correct. 
+- To run the pipeline, all the user needs to do is execute `./pipieline.sh` from the assignment_05 directory.
 
 ## Personal Reflection
 ...
