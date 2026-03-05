@@ -1,9 +1,9 @@
 ## Assignment #5 ##
-# Wyatt Travers
-# 3-4-26
+Wyatt Travers
+3-4-26
 
 ## Assignment Tree
-C:.
+```text
 │   pipeline.sh
 │   README.md
 │
@@ -20,6 +20,7 @@ C:.
 └───scripts
         01_download_data.sh
         02_run_fastp.sh
+```
 
 ## Setup assignment_05/ directory
 ```
@@ -98,4 +99,5 @@ done
 - To run the pipeline, all the user needs to do is execute `./pipieline.sh` from the assignment_05 directory.
 
 ## Personal Reflection
-...
+I think the reason we split this assignment into two separate scripts is to keep the main parts of the pipeline contained in case of errors in the workflow. Running the entire script in one file will most likely lead to a higher chance of running into an error, and splitting up the work into parts makes sure that I can run everything from top to bottom smoothly, and have an easier time finding what went wrong when things break (which happens to me too often). Also, having a script specifically for downloading data and another for the cleaning is useful if I only want to run one part. If someone has their own .gz files and just wants to use the cleaning part, not having to go into a large script and take out what they need (which is already dangerous) and instead just running the run_fastp file is quite handy. One of the main errors I ran into was when initially running the run_fastp script from my scripts folder. Since the script contains a few relative paths, which assume I am in my assignment_05 directory, some of the commands (like moving the HTML output to the log folder) were not working correctly. Making sure that there is a known start, and how the directories branch off where the script is being run, is important for the user to know. I’m definitely getting more comfortable with downloading things from the internet (specifically GitHub). Last assignment, downloading seqk had me running into some issues since I did not fully read the documentation, and had to troubleshoot getting the program to work once it was on my folder. This time, I scanned the GitHub and made sure I was downloading the program for Linux and running the additional commands, which made the process much easier. This has definitely been the most fun assignment so far, and I’m curious to see how these pipelines start to look with much more complex scripts and larger data sets.
+
