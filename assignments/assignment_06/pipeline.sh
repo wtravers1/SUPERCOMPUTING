@@ -12,6 +12,9 @@ set -ueo pipefail
 # build flye conda environment
 ./scripts/02_flye_2.9.6_conda_install.sh
 
+# make assemblies folder
+mkdir -p assemblies
+
 # run conda flye
 ./scripts/03_run_flye_conda.sh
 

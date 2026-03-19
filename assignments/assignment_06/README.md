@@ -34,10 +34,9 @@
 
 ## Setup assignment_06/ directory
 
-Make subdirectories for data and scripts. Add a .gitkeep file to data/ since .fastq.gz is hidden in .gitignore.
+Make subdirectories for scripts. Add a .gitkeep file to data/ and assemblies/ later since .fastq.gz and files in assemblies/ are hidden in .gitignore.
 ```
-mkdir data scripts
-touch ./data/.gitkeep
+mkdir scripts
 ```
 
 ## Creating 01_download_data.sh
@@ -49,6 +48,7 @@ set -ueo pipefail
 # SCRIPT 1: download genomic dataset
 
 # download data in ./data
+mkdir -p data
 cd data
 wget https://zenodo.org/records/15730819/files/SRR33939694.fastq.gz
 ```
@@ -183,6 +183,8 @@ set -ueo pipefail
 
 # build flye conda environment
 ./scripts/02_flye_2.9.6_conda_install.sh
+
+mkdir -p assemblies
 
 # run conda flye
 ./scripts/03_run_flye_conda.sh
