@@ -5,3 +5,4 @@
 *.fasta
 /lessons
 /quizzes
+/assignments/assignment_06/assemblies/**/*.log
