@@ -1,0 +1,19 @@
+java -ea   -Xmx24g -Xms24g -cp /sciclone/home/wtravers/programs/bbmap/bbtools.jar align2.BBMap build=1 overwrite=true fastareadlen=500 ref=data/dog_reference/dog_reference_genome.fna in1=data/clean/SRR36115451_1_clean.fastq in2=data/clean/SRR36115451_2_clean.fastq outm=output/SRR36115451_temp.sam minid=0.95 threads=8 overwrite=true -Xmx24g
+Executing align2.BBMap [build=1, overwrite=true, fastareadlen=500, ref=data/dog_reference/dog_reference_genome.fna, in1=data/clean/SRR36115451_1_clean.fastq, in2=data/clean/SRR36115451_2_clean.fastq, outm=output/SRR36115451_temp.sam, minid=0.95, threads=8, overwrite=true, -Xmx24g]
+Version 39.80
+
+Retaining first best site only for ambiguous mappings.
+Set MINIMUM_ALIGNMENT_SCORE_RATIO to 0.908
+NOTE:	Ignoring reference file because it already appears to have been processed.
+NOTE:	If you wish to regenerate the index, please manually delete ref/genome/1/summary.txt
+Set genome to 1
+
+Loaded Reference:	7.542 seconds.
+Loading index for chunk 1-5, build 1
+Generated Index:	158.727 seconds.
+Analyzed Index:   	10.655 seconds.
+Started output stream:	0.194 seconds.
+Cleared Memory:    	0.112 seconds.
+Processing reads in paired-ended mode.
+Started read stream.
+Started 8 mapping threads.

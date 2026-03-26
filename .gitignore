@@ -2,7 +2,11 @@
 *.tsv
 *.fna
 *.html
+*.json
 *.fasta
+*.fastq
+*.sam
 /lessons
 /quizzes
+/assignments/assignment_07/ref
 /assignments/assignment_06/assemblies/**/*.log
