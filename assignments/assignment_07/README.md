@@ -4,6 +4,26 @@ Wyatt Travers
 
 ## Assignment Tree
 
+```text
+C:.
+│   assignment_07_pipeline.sh
+│   README.md
+│   SraRunTable.csv
+│   temp_srr.txt
+│
+├───data
+│       SraRunTable.csv
+│
+├───output
+│       assignment_07.err
+│       assignment_07.out
+│
+└───scripts
+        01_download_data.sh
+        02_clean_reads.sh
+        03_map_reads.sh
+```
+
 ## Setup tools for assignment
 
 This assignment requires many tools for the scripts to run. All these tools must be downloaded locally in a programs/ folder located at the root. samtools is also needed, and is used as a module environment.
@@ -191,3 +211,6 @@ module load samtools/gcc-11.4.1/1.22.1
 ```
 
 ## Personal reflection
+As you have probably noticed if you've reached the end of this README, there are no results. Although the pipeline successfully downloaded all 15 of the metagenomic samples, downloaded the dog reference genome from the NIH database, cleaned the samples using fastp, configured BBmap to the Bora specs, used samtools to find dog-matching reads, ran everything in a single pipeline script, and submitted to SLURM, in the end the script hit a wall somewhere... The job took about 8 hours to queue and run, and despite allocating 6:00:00 for the runtime, it still hits a timeout error. The last line in the .err file is "Started 8 mapping threads.", which is task 4 where BBmap is used to clean the dog genome. This is an intensive process, so I most likely didn't allocate enough time for the job. Even though the runtime error stopped the script from fully completing, all of the data files were fully populated with the raw and clean data, as well as the dog reference being fully downloaded. The .sam files were also populated with something in the output, however they were 441KB, which is way smaller than they should be for sequencing data. After looking online, I saw that the initial run of BBmap takes significantly longer than subsequent runs, because it has to make a lookup table for the entire genome. I saw this through a ref/ folder being created in my assignment_07 directory. I think this was the main issue, since the pipeline was delayed from even getting to the samtools section since it was stuck on indexing the dog reference genome for the first time. For a user with this ref/ file already in their directory, the pipeline will run much faster since there is already a lookup table for the program to call from. Regardless, to fix this issue since I am confident the pipeline would be successful given enough time, I just changed the time requested from Bora to a full day (24:00:00). Although this is probably overkill, to get over the hump of running BBmap for the first time and fully completing the ref/ file, it is needed.
+
+That being said... I still don't see this assignment as a total failure. I think the open ended nature made the project very difficult, but also let me learn the most by working stuff out myself. Kinda like my training wheels were finally taken off (and I may have crashed into a wall but I got a few yards first). I finally started to understand genomic data through looking at samples in the NIH database and picking the right ones. I was on the fence about a few, but picked the herbivore data because of the smallish size and the fact they were animals and could be compared to the dog genome. Figuring out how to make sure the person running the script knows what tools to use, and how to download them was also a challenge. I ended up keeping everything I could local, since they didnt take that long to download, but used samtools as a module since Bora already had it downloaded. Another challenge was figuring out how to use BBmap and samtools, since I am still not that familiar with the programs. For BBmap, I used similar parameters to the ones I used for assignment_06, and for samtools I had to read through --help and the hints you gave in the directions. This assignment was a lot of guessing and hoping it would work out, and while it didn't end in an ideal way I'm still confident I learned a lot and am ready for running SLURM jobs in the future.
