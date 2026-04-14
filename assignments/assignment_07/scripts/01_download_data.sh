@@ -17,8 +17,10 @@ for SRR in $(cat temp_srr.txt); do
 done
 
 # DOWNLOAD DOG REFERENCE DATA
-# use ncbu dataset tool to download reference genome
+# use ncbi dataset tool to download reference genome
+cd data/dog_reference
 datasets download genome taxon "canis familiaris" --reference --filename dog_genome.zip
 unzip dog_genome.zip
-mv ncbi_dataset/data/GCF*/*.fna data/dog_reference/dog_reference_genome.fna
+mv ncbi_dataset/data/GCF*/*.fna dog_reference_genome.fna
 rm -rf ncbi_dataset dog_genome.zip md5sum.txt README.md
+cd ../..

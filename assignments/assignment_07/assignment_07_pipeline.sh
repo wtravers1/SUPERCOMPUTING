@@ -3,7 +3,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=8
-#SBATCH --time=24:00:00
+#SBATCH --time=12:00:00
 #SBATCH --mem=32G
 #SBATCH --mail-type=FAIL,BEGIN,END
 #SBATCH --mail-user=wtravers@wm.edu
@@ -16,10 +16,10 @@ set -ueo pipefail
 module load samtools/gcc-11.4.1/1.22.1
 
 # start script 1
-# ./scripts/01_download_data.sh
+./scripts/01_download_data.sh
 
 # start script 2
-# ./scripts/02_clean_reads.sh
+./scripts/02_clean_reads.sh
 
 # start script 3
 ./scripts/03_map_reads.sh

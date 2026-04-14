@@ -23,16 +23,16 @@ for FWD_IN in data/clean/*_1_clean.fastq; do
       ref="data/dog_reference/dog_reference_genome.fna" \
       in1="$FWD_IN" \
       in2="$REV_IN" \
-      outm="$TEMP_SAM" \
+      out="$TEMP_SAM" \
       minid=0.95 \
       threads=8 \
-      overwrite=true \
       -Xmx24g
-      # ref: Specifies the dog reference genome location for the BBMap alignment.
-      # minid=0.95: Sets a strict 95% identity threshold to ensure high-accuracy mapping.
-      # outm: Captures only the reads that successfully mapped to the dog genome.
-      # threads=8: Utilizes the full CPU capacity of the Bora node for faster alignment.
-      # -Xmx24g: Allocates 24GB of RAM to BBMap to handle the large dog genome index.
+
+    # ref: Specifies the dog reference genome location for the BBMap alignment.
+    # minid=0.95: Sets a strict 95% identity threshold to ensure high-accuracy mapping.
+    # outm: Captures only the reads that successfully mapped to the dog genome.
+    # threads=8: Utilizes the full CPU capacity of the Bora node for faster alignment.
+    # -Xmx24g: Allocates 24GB of RAM to BBMap to handle the large dog genome index.
     # process mapping results using samtools
     samtools view -h -F 4 "$TEMP_SAM" > "$FINAL_SAM"
     # samtools view -h -F 4: Keeps the header (-h) and excludes unmapped reads (-F 4).

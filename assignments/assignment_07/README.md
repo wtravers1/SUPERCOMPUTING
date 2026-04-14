@@ -161,7 +161,7 @@ for FWD_IN in data/clean/*_1_clean.fastq; do
       ref="data/dog_reference/dog_reference_genome.fna" \
       in1="$FWD_IN" \
       in2="$REV_IN" \
-      outm="$TEMP_SAM" \
+      out="$TEMP_SAM" \
       minid=0.95 \
       threads=8 \
       overwrite=true \
@@ -214,7 +214,29 @@ module load samtools/gcc-11.4.1/1.22.1
 
 To submit the job to the HPC using SLURM, simply type `sbatch assignment_07_pipeline.sh`. To see your active jobs, use the command `sacct`, and to see your spot in queue, use `squeue`. The output should go into your output/ folder when the job is complete.
 
+## Results
+
+| Sample ID    | Total QC Reads | Dog-Mapped Reads |
+| :----------- | :------------- | :--------------- |
+| SRR36115451  | 4,437,050      | 311              |
+| SRR36115452  | 4,061,186      | 849              |
+| SRR36115453  | 2,217,150      | 145              |
+| SRR36115454  | 1,681,260      | 173              |
+| SRR36115455  | 2,336,544      | 28               |
+| SRR36115489  | 2,521,496      | 23               |
+| SRR36115490  | 2,338,184      | 113              |
+| SRR36115491  | 2,349,558      | 205              |
+| SRR36115492  | 2,410,884      | 96               |
+| SRR36115493  | 2,187,762      | 66               |
+| SRR36115494  | 2,064,120      | 20               |
+| SRR36115495  | 1,947,266      | 158              |
+| SRR36115496  | 2,552,190      | 165              |
+| SRR36115497  | 2,166,752      | 29               |
+| SRR36115498  | 2,591,994      | 88               |
+
 ## Personal reflection
 As you have probably noticed if you've reached the end of this README, there are no results. Although the pipeline successfully downloaded all 15 of the metagenomic samples, downloaded the dog reference genome from the NIH database, cleaned the samples using fastp, configured BBmap to the Bora specs, used samtools to find dog-matching reads, ran everything in a single pipeline script, and submitted to SLURM, in the end the script hit a wall somewhere... The job took about 8 hours to queue and run, and despite allocating 6:00:00 for the runtime, it still hits a timeout error. The last line in the .err file is "Started 8 mapping threads.", which is task 4 where BBmap is used to clean the dog genome. This is an intensive process, so I most likely didn't allocate enough time for the job. Even though the runtime error stopped the script from fully completing, all of the data files were fully populated with the raw and clean data, as well as the dog reference being fully downloaded. The .sam files were also populated with something in the output, however they were 441KB, which is way smaller than they should be for sequencing data. After looking online, I saw that the initial run of BBmap takes significantly longer than subsequent runs, because it has to make a lookup table for the entire genome. I saw this through a ref/ folder being created in my assignment_07 directory. I think this was the main issue, since the pipeline was delayed from even getting to the samtools section since it was stuck on indexing the dog reference genome for the first time. For a user with this ref/ file already in their directory, the pipeline will run much faster since there is already a lookup table for the program to call from. Regardless, to fix this issue since I am confident the pipeline would be successful given enough time, I just changed the time requested from Bora to a full day (24:00:00). Although this is probably overkill, to get over the hump of running BBmap for the first time and fully completing the ref/ file, it is needed.
 
 That being said... I still don't see this assignment as a total failure. I think the open ended nature made the project very difficult, but also let me learn the most by working stuff out myself. Kinda like my training wheels were finally taken off (and I may have crashed into a wall but I got a few yards first). I finally started to understand genomic data through looking at samples in the NIH database and picking the right ones. I was on the fence about a few, but picked the herbivore data because of the smallish size and the fact they were animals and could be compared to the dog genome. Figuring out how to make sure the person running the script knows what tools to use, and how to download them was also a challenge. I ended up keeping everything I could local, since they didnt take that long to download, but used samtools as a module since Bora already had it downloaded. Another challenge was figuring out how to use BBmap and samtools, since I am still not that familiar with the programs. For BBmap, I used similar parameters to the ones I used for assignment_06, and for samtools I had to read through --help and the hints you gave in the directions. This assignment was a lot of guessing and hoping it would work out, and while it didn't end in an ideal way I'm still confident I learned a lot and am ready for running SLURM jobs in the future.
+
+UPDATE: the error was fixed after changing one of the parameters in the bbmap.sh script from outm to out. What happened was the script would only write reads that matched exactly, and since the threshold was high (95%), it would buffer since no data was being added. This made the output file grow to around 500KB, and then remain like that for the rest of the script runtime. I realized the error this way, by manually monitoring the file size when running the 03_map_reads.sh script in scratch space. After fixing this parameter and re-running on the HPC, the error was fixed and I was able to see the results.
